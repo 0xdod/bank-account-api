@@ -3,17 +3,24 @@ class AccountController {
         this.accountService = accountService
     }
 
-    create(data) {
-        const newAccount = this.accountService.create(data)
-        return newAccount
+    create(req, res, next) {
+        const newAccount = this.accountService.create(req.body)
+        res.json(newAccount)
     }
 
-    resolve(accountNumber) {
-        return this.accountService.resolve(accountNumber)
+    resolve(req, res, next) {
+        try {
+            const { accountNumber } = req.query
+            const account = this.accountService.resolve(accountNumber)
+            res.json(account)
+        } catch (e) {
+            next(e)
+        }
     }
 
-    getAll() {
-        return this.accountService.getAll()
+    getAll(req, res, next) {
+        const accounts = this.accountService.getAll()
+        res.json(accounts)
     }
 }
 

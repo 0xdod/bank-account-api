@@ -1,4 +1,5 @@
 const { AccountModel } = require("../models/account.model")
+const { BaseHttpError } = require("../errors/base-http.error")
 
 class AccountService {
     constructor(database) {
@@ -7,7 +8,7 @@ class AccountService {
 
     create(data) {
         const model = new AccountModel(data)
-        const accountNumber = this.generateBankAccountNumber()
+        let accountNumber = this.generateBankAccountNumber()
         while (this.database.find((account) => account.accountNumber === accountNumber)) {
             accountNumber = this.generateBankAccountNumber()
         }
@@ -18,7 +19,7 @@ class AccountService {
 
     resolve(accountNumber) {
         const account = this.database.find((account) => account.accountNumber === accountNumber)
-        if (!account) throw new Error('Account not found')
+        if (!account) throw new BaseHttpError(404, 'Account not found')
         return account
     }
 

@@ -9,10 +9,4 @@ class AccountModel {
     }
 }
 
-exports.ACCOUNT_TYPE = {
-    Savings: 'savings',
-    Checking: 'checking',
-    Current: 'current'
-}
-
 exports.AccountModel = AccountModel
