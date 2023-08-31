@@ -2,20 +2,6 @@
 
 A simple RESTful API using Node.js and Express for a basic Bank Account Management service with three endpoints: one to create a bank account, one to resolve a bank account, and one to fetch all bank accounts.
 
-## Table of Contents
-
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Project Structure](#project-structure)
-- [Usage](#usage)
-  - [Create a Bank Account](#create-a-bank-account)
-  - [Resolve a Bank Account](#resolve-a-bank-account)
-  - [Fetch All Bank Accounts](#fetch-all-bank-accounts)
-- [Testing](#testing)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Getting Started
 
 Follow the instructions below to get this project up and running on your local machine.
@@ -47,7 +33,13 @@ Make sure you have the following tools installed:
    npm install
    ```
 
-4. Start the server:
+4. Copy and edit the env variables:
+
+   ```shell
+   cp .env.sample .env
+   ```
+
+5. Start the server:
 
    ```shell
    npm start
@@ -63,19 +55,32 @@ The project structure is organized as follows:
 bank-account-api/
 │
 ├── controllers/
-│   ├── accountController.js     # Controller for handling account-related operations
+│   ├── account.controller.js     # Controller for handling account-related http operations
+├── database/
+│   ├── in-memory.js             # Data storage
+│
+├── errors/
+│   ├── base-http.error.js       # Error classes
+│
+├── middlewares/
+│   ├── account.middleware.js    # Middlewares
 │
 ├── models/
-│   ├── Account.js               # Account data model
+│   ├── account.model.js         # Account data model
 │
-├── routes/
-│   ├── accountRoutes.js         # API routes for account operations
+├── services/
+│   ├── account.service.js       # Business logic implementation for account management
+├── validators/
+│   ├── account.validator.js      # Account request/payload validation
+│
 │
 ├── app.js                       # Express application setup
 │
 ├── config.js                    # Configuration file for environment variables
 │
-└── server.js                    # Entry point for the application
+├── routes.js                    # Register routes
+│
+└── main.js                    # Entry point for the application
 ```
 
 ## Usage
@@ -85,16 +90,17 @@ bank-account-api/
 To create a new bank account, make a POST request to the following endpoint:
 
 ```
-POST /api/accounts
+POST /v1/accounts
 ```
 
 You should include a JSON payload with the account details, such as:
 
 ```json
 {
-  "accountNumber": "1234567890",
-  "accountName": "John Doe",
-  "balance": 1000.0
+  "accountName": "grace",
+  "dateOfBirth": "2007-09-23",
+  "accountType": "savings",
+  "balance": 100.2
 }
 ```
 
@@ -103,7 +109,7 @@ You should include a JSON payload with the account details, such as:
 To resolve (get details of) a bank account, make a GET request to the following endpoint, replacing `<accountNumber>` with the actual account number:
 
 ```
-GET /api/accounts/<accountNumber>
+GET /v1/accounts/resolve?accountNumber=<accountNumber>
 ```
 
 ### Fetch All Bank Accounts
@@ -111,34 +117,5 @@ GET /api/accounts/<accountNumber>
 To fetch a list of all bank accounts, make a GET request to the following endpoint:
 
 ```
-GET /api/accounts
+GET /v1/accounts
 ```
-
-## Testing
-
-You can run tests for this project using the following command:
-
-```shell
-npm test
-```
-
-Tests are located in the `tests` directory and use [Mocha](https://mochajs.org/) as the test framework and [Chai](https://www.chaijs.com/) for assertions.
-
-## Contributing
-
-If you'd like to contribute to this project, please follow these guidelines:
-
-1. Fork the repository on GitHub.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and ensure that the tests pass.
-4. Create a pull request with a clear description of your changes.
-
-We welcome contributions from the community!
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-**Note:** This README provides a basic structure for your project's documentation. You should update it with more specific details as you build out your Bank Account Management API. Good luck with your technical test!

@@ -5,14 +5,14 @@ const AccountService = require('./services/account.service')
 const { BankStore } = require('./database/in-memory')
 const { validateCreateBankAccountRequest } = require('./middlewares/account.middleware')
 
-exports.bankRouter = () => {
-    const bankRouter = express.Router()
+exports.accountsRouter = () => {
+    const accountsRouter = express.Router()
     const service = AccountService(BankStore)
     const controller = AccountController(service)
 
-    bankRouter.post('/', validateCreateBankAccountRequest, controller.create.bind(controller))
-    bankRouter.get('/', controller.getAll.bind(controller))
-    bankRouter.get('/resolve', controller.resolve.bind(controller))
+    accountsRouter.post('/', validateCreateBankAccountRequest, controller.create.bind(controller))
+    accountsRouter.get('/', controller.getAll.bind(controller))
+    accountsRouter.get('/resolve', controller.resolve.bind(controller))
 
-    return bankRouter
+    return accountsRouter
 }

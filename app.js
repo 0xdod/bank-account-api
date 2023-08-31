@@ -1,13 +1,13 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 
-const { bankRouter } = require('./routes')
+const { accountsRouter } = require('./routes')
 const { BaseHttpError } = require('./errors/base-http.error')
 
 const app = express()
 app.use(bodyParser.json())
 
-app.use('/v1/banks', bankRouter())
+app.use('/v1/accounts', accountsRouter())
 
 // Error handling middleware
 app.use((err, req, res, next) => {
