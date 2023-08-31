@@ -5,7 +5,7 @@ exports.createAccountSchema = Joi.object({
     accountName: Joi.string().required(),
     dateOfBirth: Joi.string().custom(isDateValid).required(),
     accountType: Joi.string().valid('savings', 'checking').required(),
-    balance: Joi.number().required(),
+    balance: Joi.number().min(0).required(),
 });
 
 function isDateValid(dateString, helpers) {

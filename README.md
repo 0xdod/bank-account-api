@@ -57,7 +57,7 @@ bank-account-api/
 ├── controllers/
 │   ├── account.controller.js     # Controller for handling account-related http operations
 ├── database/
-│   ├── in-memory.js             # Data storage
+│   ├── in-memory.js             # In memory implementation of data storage
 │
 ├── errors/
 │   ├── base-http.error.js       # Error classes
